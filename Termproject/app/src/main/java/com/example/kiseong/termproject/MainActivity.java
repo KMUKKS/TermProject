@@ -38,19 +38,9 @@ public class MainActivity extends AppCompatActivity {
                                        startActivity(log_intent);
                                    }
                                });
-        /*
-        log = (Button)findViewById(R.id.button3);
-        note = (Button)findViewById(R.id.button2);
-        report = (Button)findViewById(R.id.button4);
-*/
+
     }
-/*
-    public void onClick(View view){
-        Intent task_intent = new Intent(this, TaskMain.class);
-        startActivity(task_intent);
-        finish();
-    }
-*/
+
 }
 
 

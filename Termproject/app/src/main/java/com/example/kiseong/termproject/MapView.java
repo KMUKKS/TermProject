@@ -24,43 +24,22 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapView extends FragmentActivity implements GoogleMap.OnMapClickListener{
 
     private GoogleMap gm;
-//    GpsInfo gps = new GpsInfo(MapView.this);
 
-/*
-    double lat_arr[] = {37.4706390,37.5572580,37.5813100,37.6019780,37.6079530,37.6093240,};
-    double lon_arr[] = {126.9685050,126.9949010,127.0020940,127.0246850,127.0032500,126.9982990,};
-
-    LatLng location = new LatLng(37.6102460, 126.9969570);
-    MarkerOptions marker;
-    CameraPosition cp = new CameraPosition.Builder().target(location).zoom(11).build();
-
-*/
     protected void onCreate(Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
         setContentView(R.layout.map_view);
 
-        // BitmapDescriptorFactory 생성하기 위한 소스
         MapsInitializer.initialize(getApplicationContext());
         init();
 
-/*
-        gm = ((SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
-        for(int i = 0 ; i < lat_arr.length ; i++){
-            location = new LatLng(lat_arr[i],lon_arr[i]);
-            marker = new MarkerOptions().position(location);
-            gm.addMarker(marker);
-        }
-        gm.animateCamera(CameraUpdateFactory.newCameraPosition(cp));
-        */
+
     }
 
-    /** Map 클릭시 터치 이벤트 */
+
     public void onMapClick(LatLng point) {
 
-        // 현재 위도와 경도에서 화면 포인트를 알려준다
         Point screenPt = gm.getProjection().toScreenLocation(point);
 
-        // 현재 화면에 찍힌 포인트로 부터 위도와 경도를 알려준다.
         LatLng latLng = gm.getProjection().fromScreenLocation(screenPt);
 
         Log.d("맵좌표", "좌표: 위도(" + String.valueOf(point.latitude) + "), 경도("
@@ -78,33 +57,26 @@ public class MapView extends FragmentActivity implements GoogleMap.OnMapClickLis
         gm = ((SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map)).getMap();
 
-        // 맵의 이동
-        //mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
+
 
         GpsInfo gps = new GpsInfo(MapView.this);
-        // GPS 사용유무 가져오기
+
         if (gps.isGetLocation()) {
             double latitude = gps.getLatitude();
             double longitude = gps.getLongitude();
 
-            // Creating a LatLng object for the current location
+
             LatLng latLng = new LatLng(latitude, longitude);
 
-            // Showing the current location in Google Map
+
             gm.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
-            // Map 을 zoom 합니다.
+
             gm.animateCamera(CameraUpdateFactory.zoomTo(13));
 
 
-            // 마커 설정.
             MarkerOptions opmark = new MarkerOptions();
-            /*
-            opmark.position(latLng);// 위도 • 경도
-            opmark.title("Current Position");// 제목 미리보기
-            opmark.snippet("Snippet");
-            //optFirst.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_example));
-            */
+
             for(int i = 0; i < dba.ar_st.size(); i++){
                 LatLng latlng = new LatLng(dba.ar_lat.get(i),dba.ar_lon.get(i));
                 opmark = new MarkerOptions().position(latlng).title(dba.ar_st.get(i));

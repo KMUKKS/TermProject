@@ -24,6 +24,7 @@ public class TaskMain extends AppCompatActivity {
     private TextView lat;
     private TextView lon;
     private EditText st;
+    private Button button_dbp;
     private Button save;
 
     private GpsInfo gps;
@@ -34,10 +35,14 @@ public class TaskMain extends AppCompatActivity {
         setContentView(R.layout.task_main);
         checkDangerousPermissions();
 
+        final DBmanager dbManager = new DBmanager(getApplicationContext(), "LATLNG.db", null, 1);
+
+
         final DataList dba = new DataList();
 
         button_start = (Button)findViewById(R.id.button1);
         button_map = (Button)findViewById(R.id.button2) ;
+        button_dbp = (Button)findViewById(R.id.dbp);
 
         lat = (TextView)findViewById(R.id.Lat);
         lon = (TextView)findViewById(R.id.Lon);
@@ -74,6 +79,18 @@ public class TaskMain extends AppCompatActivity {
                                             }
                                         }
         );
+
+        button_dbp.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                String Latitude = lat.getText().toString();
+                String Longitude = lon.getText().toString();
+                dbManager.insert("insert into LATLNG_LIST values(null, '" + Latitude + "', " + Longitude + ");");
+
+
+
+            }
+                                      });
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
