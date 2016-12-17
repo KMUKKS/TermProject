@@ -20,7 +20,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         task = (Button)findViewById(R.id.button5);
-        /*
+        log = (Button)findViewById(R.id.button3);
+
         task.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -29,21 +30,27 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-       */
 
+        log.setOnClickListener(new View.OnClickListener() {
+                                   @Override
+                                   public void onClick(View view) {
+                                       Intent log_intent = new Intent(getApplicationContext(), LogData.class);
+                                       startActivity(log_intent);
+                                   }
+                               });
         /*
         log = (Button)findViewById(R.id.button3);
         note = (Button)findViewById(R.id.button2);
         report = (Button)findViewById(R.id.button4);
 */
     }
-
+/*
     public void onClick(View view){
         Intent task_intent = new Intent(this, TaskMain.class);
         startActivity(task_intent);
         finish();
     }
-
+*/
 }
 
 

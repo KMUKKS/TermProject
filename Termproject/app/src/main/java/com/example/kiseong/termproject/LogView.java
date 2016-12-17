@@ -4,38 +4,25 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.View;
 
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-
-
 /**
- * Created by kiseong on 2016-11-30.
+ * Created by kiseong on 2016-12-17.
  */
-public class MapView extends FragmentActivity implements GoogleMap.OnMapClickListener{
+
+public class LogView extends FragmentActivity {
 
     private GoogleMap gm;
-//    GpsInfo gps = new GpsInfo(MapView.this);
 
-/*
-    double lat_arr[] = {37.4706390,37.5572580,37.5813100,37.6019780,37.6079530,37.6093240,};
-    double lon_arr[] = {126.9685050,126.9949010,127.0020940,127.0246850,127.0032500,126.9982990,};
-
-    LatLng location = new LatLng(37.6102460, 126.9969570);
-    MarkerOptions marker;
-    CameraPosition cp = new CameraPosition.Builder().target(location).zoom(11).build();
-
-*/
-    protected void onCreate(Bundle saveInstanceState){
+    protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.map_view);
 
@@ -43,18 +30,11 @@ public class MapView extends FragmentActivity implements GoogleMap.OnMapClickLis
         MapsInitializer.initialize(getApplicationContext());
         init();
 
-/*
-        gm = ((SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
-        for(int i = 0 ; i < lat_arr.length ; i++){
-            location = new LatLng(lat_arr[i],lon_arr[i]);
-            marker = new MarkerOptions().position(location);
-            gm.addMarker(marker);
-        }
-        gm.animateCamera(CameraUpdateFactory.newCameraPosition(cp));
-        */
     }
 
-    /** Map 클릭시 터치 이벤트 */
+    /**
+     * Map 클릭시 터치 이벤트
+     */
     public void onMapClick(LatLng point) {
 
         // 현재 위도와 경도에서 화면 포인트를 알려준다
@@ -74,14 +54,14 @@ public class MapView extends FragmentActivity implements GoogleMap.OnMapClickLis
 
         DataList dba = new DataList();
 
-        GooglePlayServicesUtil.isGooglePlayServicesAvailable(MapView.this);
+        GooglePlayServicesUtil.isGooglePlayServicesAvailable(LogView.this);
         gm = ((SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map)).getMap();
 
         // 맵의 이동
         //mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
 
-        GpsInfo gps = new GpsInfo(MapView.this);
+        GpsInfo gps = new GpsInfo(LogView.this);
         // GPS 사용유무 가져오기
         if (gps.isGetLocation()) {
             double latitude = gps.getLatitude();
@@ -98,29 +78,47 @@ public class MapView extends FragmentActivity implements GoogleMap.OnMapClickLis
 
 
             // 마커 설정.
-            MarkerOptions opmark = new MarkerOptions();
+            MarkerOptions mark = new MarkerOptions();
             /*
             opmark.position(latLng);// 위도 • 경도
             opmark.title("Current Position");// 제목 미리보기
             opmark.snippet("Snippet");
             //optFirst.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_example));
             */
-            for(int i = 0; i < dba.ar_st.size(); i++){
-                LatLng latlng = new LatLng(dba.ar_lat.get(i),dba.ar_lon.get(i));
-                opmark = new MarkerOptions().position(latlng).title(dba.ar_st.get(i));
+            for (int i = 0; i < dba.ar_st.size(); i++) {
+                LatLng latlng = new LatLng(dba.ar_lat.get(i), dba.ar_lon.get(i));
+               // mark = new MarkerOptions().position(latlng).title(dba.ar_st.get(i));
+
+                switch (dba.ar_tp.get(i)) {
+                    case 1:
+                        mark = new MarkerOptions().position(latlng).title(dba.ar_st.get(i)).
+                                icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+                        break;
+                    case 2:
+                        mark = new MarkerOptions().position(latlng).title(dba.ar_st.get(i)).
+                                icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                        break;
+                    case 3:
+                        mark = new MarkerOptions().position(latlng).title(dba.ar_st.get(i)).
+                                icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                        break;
+                    case 4:
+                        mark = new MarkerOptions().position(latlng).title(dba.ar_st.get(i)).
+                                icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                        break;
+                    case 5:
+                        mark = new MarkerOptions().position(latlng).title(dba.ar_st.get(i)).
+                                icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                    default:
+                        mark = new MarkerOptions().position(latlng).title(dba.ar_st.get(i)).
+                                icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                }
+
+                gm.addMarker(mark).showInfoWindow();
             }
 
-            gm.addMarker(opmark).showInfoWindow();
+
         }
-
-
     }
-
-
-
-/*
-    public void onClick(View v){
-        finish();
-    }
-    */
 }
+

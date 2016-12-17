@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Longitude"
+            android:text="Longitude :"
             android:id="@+id/Lon"
             android:layout_below="@+id/Lat"
             android:layout_alignParentLeft="true"
@@ -54,5 +55,101 @@
             android:layout_marginStart="44dp"
             android:onClick="onClick" />
 
+        <RadioGroup
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button1"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="17dp"
+            android:layout_marginEnd="17dp"
+            android:layout_marginTop="103dp"
+            android:id="@+id/radioGroup">
+
+            <RadioButton
+                android:id="@+id/exercise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="운동"
+                android:textColor="#FF2D47D6"
+                android:textColorLink="@android:color/holo_orange_dark" />
+
+            <RadioButton
+                android:id="@+id/study"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/exercise"
+                android:layout_alignBottom="@+id/exercise"
+                android:layout_alignLeft="@+id/button1"
+                android:layout_alignStart="@+id/button1"
+                android:layout_marginLeft="23dp"
+                android:layout_marginStart="23dp"
+                android:text="공부"
+                android:textColor="#FF1BF46E" />
+
+            <RadioButton
+                android:id="@+id/meal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/study"
+                android:layout_alignBottom="@+id/study"
+                android:layout_toLeftOf="@+id/button2"
+                android:layout_toStartOf="@+id/button2"
+                android:text="식사"
+                android:textColor="#FFE6E618" />
+
+            <RadioButton
+                android:id="@+id/meeting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/meal"
+                android:layout_alignBottom="@+id/meal"
+                android:layout_alignLeft="@+id/button2"
+                android:layout_alignStart="@+id/button2"
+                android:text="미팅"
+                android:textColor="#FFFB6497" />
+
+            <RadioButton
+                android:id="@+id/etc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/meeting"
+                android:layout_alignBottom="@+id/meeting"
+                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_toEndOf="@+id/meeting"
+                android:layout_toRightOf="@+id/meeting"
+                android:text="기타"
+                android:textColor="#FF18E6C7" />
+
+        </RadioGroup>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/inserting"
+            android:text="입력"
+            android:layout_below="@+id/radioGroup"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="37dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/doing"
+            android:hint="Type this line for What you do"
+            android:layout_alignBottom="@+id/inserting"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp" />
+
+
     </RelativeLayout>
+
 </LinearLayout>
